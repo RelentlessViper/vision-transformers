@@ -4,7 +4,7 @@ import pandas as pd
 import os
 
 FOLDER = 'cifar-10-batches-py/' # redefine if you store dataset in another folder
-SAVE_PATH = 'data/'
+SAVE_PATH = 'data/' # redefine if you store processed dataset in another folder
 
 def unpickle(file):
     with open(file, 'rb') as fo:
