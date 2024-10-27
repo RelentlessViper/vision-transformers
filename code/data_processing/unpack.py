@@ -15,7 +15,7 @@ def create_save_dir():
     if not os.path.exists(SAVE_PATH):
         os.mkdir(SAVE_PATH)
 
-def meta_to_csv(folder: str):
+def meta_to_csv(folder: str = FOLDER):
     batches_dict = unpickle(folder + 'batches.meta')
     to_csv_dict = {}
 
