@@ -70,7 +70,7 @@ class VIT(nn.Module):
         
         self.patch_embedding = PatchEmbedding()
         
-        self.encoder_stack = nn.ModuleList([Encoder(self.latent_size, self.num_heads, self.dropout, self.device) for _ in range(self.num_layers)])
+        self.encoder_stack = nn.ModuleList([Encoder(self.latent_size, self.num_heads, self.dropout, self.device).to(self.device) for _ in range(self.num_layers)])
         
         self.MLP = nn.Sequential(
             nn.LayerNorm(self.latent_size),
