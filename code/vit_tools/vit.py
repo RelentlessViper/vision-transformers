@@ -22,8 +22,6 @@ class VIT(nn.Module):
         The amount of classes in the dataset.
     `dropout`: float = 0.1
         The probability of dropping each value from the layer's output.
-    `device`: str = 'cpu'
-        The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
     """
     
     def __init__(
@@ -33,7 +31,6 @@ class VIT(nn.Module):
         num_heads: int = NUM_HEADS,
         num_classes: int = NUM_CLASSES,
         dropout: float = DROPOUT,
-        device: str = 'cpu'
     ) -> None:
         """
         Initialize Vision Transformer (VIT).
@@ -50,8 +47,6 @@ class VIT(nn.Module):
             The amount of classes in the dataset.
         `dropout`: float = 0.1
             The probability of dropping each value from the layer's output.
-        `device`: str = 'cpu'
-            The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
             
         Returns
         ----------
@@ -66,11 +61,10 @@ class VIT(nn.Module):
         self.num_heads = num_heads
         self.num_classes = num_classes
         self.dropout = dropout
-        self.device = device
         
         self.patch_embedding = PatchEmbedding()
         
-        self.encoder_stack = nn.ModuleList([Encoder(self.latent_size, self.num_heads, self.dropout, self.device).to(self.device) for _ in range(self.num_layers)])
+        self.encoder_stack = nn.ModuleList([Encoder(self.latent_size, self.num_heads, self.dropout) for _ in range(self.num_layers)])
         
         self.MLP = nn.Sequential(
             nn.LayerNorm(self.latent_size),

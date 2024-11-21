@@ -18,8 +18,6 @@ class PatchEmbedding(nn.Module):
         The size of embeddings that is calculated in the following way: P * P * C.
     `batch_size`: int = 4
         The batch size.
-    `device`: str = 'cpu'
-        The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
     """
     
     def __init__(
@@ -27,8 +25,7 @@ class PatchEmbedding(nn.Module):
         patch_size: int = PATCH_SIZE,
         n_channels: int = N_CHANNELS,
         n_model: int = LATENT_SIZE,
-        batch_size: int = BATCH_SIZE,
-        device: str = 'cpu'
+        batch_size: int = BATCH_SIZE
     ) -> None:
         """
         Initialize the PatchEmbedding class.
@@ -43,8 +40,6 @@ class PatchEmbedding(nn.Module):
             The size of embeddings that is calculated in the following way: P * P * C.
         `batch_size`: int = 4
             The batch size.
-        `device`: str = 'cpu'
-            The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
         
         Returns
         ----------
@@ -58,16 +53,15 @@ class PatchEmbedding(nn.Module):
         self.n_channels = n_channels
         self.n_model = n_model
         self.batch_size = batch_size
-        self.device = device
         
         self.input_size = self.patch_size * self.patch_size * self.n_channels
         
         self.linear_projection = nn.Linear(self.input_size, self.n_model)
         
         # Class labels (random)
-        self.class_label = nn.Parameter(torch.randn(self.batch_size, 1, self.n_model)).to(device)
+        self.class_label = nn.Parameter(torch.randn(self.batch_size, 1, self.n_model))
         
-        self.positional_embedding = nn.Parameter(torch.randn(self.batch_size, 1, self.n_model)).to(device)
+        self.positional_embedding = nn.Parameter(torch.randn(self.batch_size, 1, self.n_model))
     
     def forward(self, input: torch.Tensor) -> torch.Tensor:
         """
@@ -98,7 +92,7 @@ class PatchEmbedding(nn.Module):
             Patch embeddings for all given images.
         """
         
-        input = input.to(self.device)
+        input = input
         
         patches = einops.rearrange(
             input,
@@ -107,7 +101,7 @@ class PatchEmbedding(nn.Module):
             w1=self.patch_size
         )
         
-        linear_projection = self.linear_projection(patches).to(self.device)
+        linear_projection = self.linear_projection(patches)
         b, n, _ = linear_projection.shape
         
         linear_projection = torch.cat((self.class_label, linear_projection), dim=1)

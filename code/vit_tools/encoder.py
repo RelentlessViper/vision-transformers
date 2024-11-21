@@ -15,16 +15,13 @@ class Encoder(nn.Module):
         The amount of heads used in the Attention mechanism.
     `dropout`: float = 0.1
         The probability of dropping each value from the layer's output.
-    `device`: str = 'cpu'
-        The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
     """
     
     def __init__(
         self,
         latent_size: int = LATENT_SIZE,
         num_heads: int = NUM_HEADS,
-        dropout: float = DROPOUT,
-        device: str = 'cpu'
+        dropout: float = DROPOUT
     ) -> None:
         """
         Initialize the Encoder class.
@@ -37,8 +34,6 @@ class Encoder(nn.Module):
             The amount of heads used in the Attention mechanism.
         `dropout`: float = 0.1
             The probability of dropping each value from the layer's output.
-        `device`: str = 'cpu'
-            The device. Can be either 'cpu', or 'cuda:n', where 'n' is the number of GPU processors.
         
         Returns
         ----------
@@ -51,7 +46,6 @@ class Encoder(nn.Module):
         self.latent_size = latent_size
         self.num_heads = num_heads
         self.dropout = dropout
-        self.device = device
         
         self.layer_norm_0 = nn.LayerNorm(self.latent_size)
         self.layer_norm_1 = nn.LayerNorm(self.latent_size)
