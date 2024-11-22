@@ -71,6 +71,7 @@ def train_model(
     criterion: torch.nn.CrossEntropyLoss,
     train_loader: DataLoader,
     test_loader: DataLoader,
+    training_loop_counter: int = 0,
     num_epochs: int = NUM_EPOCHS,
     early_stopping_patience: int = EARLY_STOPPING_PATIENCE,
     device: torch.cuda.device = torch.device('cpu')
