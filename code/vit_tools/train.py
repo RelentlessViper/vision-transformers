@@ -73,7 +73,7 @@ def train_model(
     test_loader: DataLoader,
     num_epochs: int = NUM_EPOCHS,
     early_stopping_patience: int = EARLY_STOPPING_PATIENCE,
-    device: torch.cuda.device = torch.cuda.device('cpu')
+    device: torch.cuda.device = torch.device('cpu')
 ):
     """
     Complete one training iteration of the given model. At the end the checkpoint of best model will be saved as well
