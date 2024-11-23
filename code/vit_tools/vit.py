@@ -30,6 +30,7 @@ class VIT(nn.Module):
         latent_size: int = LATENT_SIZE,
         num_heads: int = NUM_HEADS,
         num_classes: int = NUM_CLASSES,
+        batch_size: int = BATCH_SIZE,
         dropout: float = DROPOUT,
     ) -> None:
         """
@@ -60,9 +61,10 @@ class VIT(nn.Module):
         self.latent_size = latent_size
         self.num_heads = num_heads
         self.num_classes = num_classes
+        self.batch_size = batch_size
         self.dropout = dropout
         
-        self.patch_embedding = PatchEmbedding()
+        self.patch_embedding = PatchEmbedding(batch_size=batch_size, n_model=self.latent_size)
         
         self.encoder_stack = nn.ModuleList([Encoder(self.latent_size, self.num_heads, self.dropout) for _ in range(self.num_layers)])
         
