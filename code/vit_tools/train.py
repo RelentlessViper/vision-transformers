@@ -154,9 +154,7 @@ def train_model(
     plt.plot(val_loss_history, label='Val Loss')
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
-    plt.title(f"Training and Validation Loss:
-              img_size={img_size}, batch_size={model.batch_size}, num_layers={model.num_layers}, num_heads={model.num_heads},
-              latent_size={model.latent_size}")
+    plt.title(f"Training and Validation Loss: img_size={img_size}, batch_size={model.batch_size}, num_layers={model.num_layers}, num_heads={model.num_heads}, latent_size={model.latent_size}")
     plt.legend()
 
     plt.subplot(1, 2, 2)
