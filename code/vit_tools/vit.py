@@ -3,7 +3,6 @@ import torch
 from torch import nn
 from const import *
 
-from patch_embedding import PatchEmbedding
 from encoder import Encoder
 
 class VIT(nn.Module):
@@ -22,6 +21,8 @@ class VIT(nn.Module):
         The amount of classes in the dataset.
     `dropout`: float = 0.1
         The probability of dropping each value from the layer's output.
+    `patch_embedding_version`: str = 'v1'
+            The version of `PatchEmbedding` class to use.
     """
     
     def __init__(
@@ -32,6 +33,7 @@ class VIT(nn.Module):
         num_classes: int = NUM_CLASSES,
         batch_size: int = BATCH_SIZE,
         dropout: float = DROPOUT,
+        patch_embedding_version: str = 'v1'
     ) -> None:
         """
         Initialize Vision Transformer (VIT).
@@ -48,6 +50,8 @@ class VIT(nn.Module):
             The amount of classes in the dataset.
         `dropout`: float = 0.1
             The probability of dropping each value from the layer's output.
+        `patch_embedding_version`: str = 'v1'
+            The version of `PatchEmbedding` class to use.
             
         Returns
         ----------
@@ -63,6 +67,14 @@ class VIT(nn.Module):
         self.num_classes = num_classes
         self.batch_size = batch_size
         self.dropout = dropout
+        self.patch_embedding_version = patch_embedding_version
+        
+        if self.patch_embedding_version == 'v1':
+            from patch_embedding import PatchEmbedding
+        elif self.patch_embedding_version == 'v2':
+            from patch_embedding_v2 import PatchEmbedding
+        else:
+            raise Exception(f"Either 'v1' or 'v2' patch_embedding_version must be specified, got '{self.patch_embedding_version}'.")
         
         self.patch_embedding = PatchEmbedding(batch_size=batch_size, n_model=self.latent_size)
         
