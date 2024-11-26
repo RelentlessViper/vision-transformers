@@ -100,8 +100,7 @@ model_pars = {
     'patch_embedding_version': 'v2'
 }
 model = VIT(
-    **model_pars,
-    patch_embedding_version='v2'
+    **model_pars
 ).to(device)
 
 
