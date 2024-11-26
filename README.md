@@ -52,7 +52,8 @@ cd vision-transformers/code/vit_tools
 ### Training the Model
 Download [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) Dataset:
 ```Python
-from torchvision import datasets, transforms
+from torchvision import datasets
+from torchvision import transforms as T
 from torch.utils.data import DataLoader
 
 dataset_pars = {
