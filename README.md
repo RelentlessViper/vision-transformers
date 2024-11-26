@@ -145,7 +145,7 @@ image = Image.open('path_to_image.jpg')
 image = test_transforms(image).unsqueeze(0).to(device)
 
 with torch.no_grad():
-    logits = model(image.to(device)) # Assuming that batch size = 1
+    logits = model(image) # Assuming that batch size = 1
     prediction = torch.argmax(logits, dim=1).item()
     print(f'Predicted class: {prediction}')
 ```
