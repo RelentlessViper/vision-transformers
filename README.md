@@ -1,4 +1,4 @@
-# Vision Transformer (ViT) Implementation
+# Vision Transformers (ViT) Implementation
 
 This repository contains an implementation of a **Vision Transformer (ViT)**, inspired by the original paper ["An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale"](https://arxiv.org/abs/2010.11929). The model is implemented using PyTorch and applied to the [CIFAR-10](https://www.cs.toronto.edu/~kriz/cifar.html) dataset for image classification.
 
